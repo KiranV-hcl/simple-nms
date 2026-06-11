@@ -2,68 +2,44 @@ package com.hcl.routersimulator.model;
 
 public class RouterData {
 
-    private String routerId;
-    private String ipAddress;
-    private String status;
-    private double cpuUsage;
-    private double memoryUsage;
+    private String deviceId;
+    private double temperature;
+    private long numPackets;
+    private boolean alive;
     private long timestamp;
 
-    // ✅ No-args constructor
-    public RouterData() {
+    // Getters & Setters
+
+    public String getDeviceId() {
+        return deviceId;
     }
 
-    // ✅ All-args constructor
-    public RouterData(String routerId, String ipAddress, String status,
-                      double cpuUsage, double memoryUsage, long timestamp) {
-        this.routerId = routerId;
-        this.ipAddress = ipAddress;
-        this.status = status;
-        this.cpuUsage = cpuUsage;
-        this.memoryUsage = memoryUsage;
-        this.timestamp = timestamp;
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
     }
 
-    // ✅ Getters & Setters
-
-    public String getRouterId() {
-        return routerId;
+    public double getTemperature() {
+        return temperature;
     }
 
-    public void setRouterId(String routerId) {
-        this.routerId = routerId;
+    public void setTemperature(double temperature) {
+        this.temperature = temperature;
     }
 
-    public String getIpAddress() {
-        return ipAddress;
+    public long getNumPackets() {
+        return numPackets;
     }
 
-    public void setIpAddress(String ipAddress) {
-        this.ipAddress = ipAddress;
+    public void setNumPackets(long numPackets) {
+        this.numPackets = numPackets;
     }
 
-    public String getStatus() {
-        return status;
+    public boolean isAlive() {
+        return alive;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public double getCpuUsage() {
-        return cpuUsage;
-    }
-
-    public void setCpuUsage(double cpuUsage) {
-        this.cpuUsage = cpuUsage;
-    }
-
-    public double getMemoryUsage() {
-        return memoryUsage;
-    }
-
-    public void setMemoryUsage(double memoryUsage) {
-        this.memoryUsage = memoryUsage;
+    public void setAlive(boolean alive) {
+        this.alive = alive;
     }
 
     public long getTimestamp() {
@@ -72,18 +48,5 @@ public class RouterData {
 
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
-    }
-
-    // ✅ toString (useful for logging)
-    @Override
-    public String toString() {
-        return "RouterData{" +
-                "routerId='" + routerId + '\'' +
-                ", ipAddress='" + ipAddress + '\'' +
-                ", status='" + status + '\'' +
-                ", cpuUsage=" + cpuUsage +
-                ", memoryUsage=" + memoryUsage +
-                ", timestamp=" + timestamp +
-                '}';
     }
 }

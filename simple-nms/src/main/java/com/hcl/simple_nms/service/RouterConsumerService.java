@@ -10,71 +10,41 @@ import org.springframework.stereotype.Service;
 @Service
 public class RouterConsumerService {
 
-	private final ObjectMapper objectMapper = new ObjectMapper();
-//	private final FileWriterService fileWriterService;
-	
-	private final RouterDataRepository repository;
-	
-//	public RouterConsumerService(FileWriterService fileWriterService) {
-//		this.fileWriterService = fileWriterService;
-//	}
-//	
+    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final RouterDataRepository repository;
+    private final AlertService alertService;
 
-	public RouterConsumerService(RouterDataRepository repository) {
-		this.repository = repository;
-	}
+    public RouterConsumerService(RouterDataRepository repository,
+                                 AlertService alertService) {
+        this.repository = repository;
+        this.alertService = alertService;
+    }
 
+    @KafkaListener(topics = "router-topic", groupId = "nms-group")
+    public void consume(String message) {
 
-	@KafkaListener(topics = "router-topic", groupId = "nms-group")
-	public void consume(String message) {
+        try {
+            // Convert JSON → Object
+            RouterData data = objectMapper.readValue(message, RouterData.class);
 
-//        try {
-//            RouterData data = objectMapper.readValue(message, RouterData.class);
-//
-//            System.out.println(" Received: " + data.getRouterId());
-//            
-//            
-//
-////            fileWriterService.writeToFile(message);
-//
-//            process(data);
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+            System.out.println("📥 Received: " + data.getDeviceId());
 
-		try {
-			RouterData data = objectMapper.readValue(message, RouterData.class);
+            // Save into DB
+            RouterDataEntity entity = new RouterDataEntity();
 
-			System.out.println(" Received: " + data.getRouterId());
+            entity.setDeviceId(data.getDeviceId());
+            entity.setTemperature(data.getTemperature());
+            entity.setNumPackets(data.getNumPackets());
+            entity.setAlive(data.isAlive());
+            entity.setTimestamp(data.getTimestamp());
 
-			// Save to DB
-			RouterDataEntity entity = new RouterDataEntity();
+            repository.save(entity);
 
-			entity.setRouterId(data.getRouterId());
-			entity.setIpAddress(data.getIpAddress());
-			entity.setStatus(data.getStatus());
-			entity.setCpuUsage(data.getCpuUsage());
-			entity.setMemoryUsage(data.getMemoryUsage());
-			entity.setTimestamp(data.getTimestamp());
+            // Process alerts
+            alertService.process(data);
 
-			repository.save(entity);
-
-			process(data);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	private void process(RouterData data) {
-
-		if ("DOWN".equalsIgnoreCase(data.getStatus())) {
-			System.out.println(" ALERT: Router DOWN → " + data.getRouterId());
-		}
-
-		if (data.getCpuUsage() > 80) {
-			System.out.println(" HIGH CPU → " + data.getRouterId() + " CPU: " + data.getCpuUsage());
-		}
-	}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

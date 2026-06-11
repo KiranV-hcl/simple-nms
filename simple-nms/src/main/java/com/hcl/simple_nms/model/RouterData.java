@@ -2,60 +2,51 @@ package com.hcl.simple_nms.model;
 
 public class RouterData {
 
-	private String routerId;
-	private String ipAddress;
-	private String status;
-	private double cpuUsage;
-	private double memoryUsage;
-	private long timestamp;
+    private String deviceId;
+    private double temperature;
+    private long numPackets;
+    private boolean alive;
+    private long timestamp;
 
-	public String getRouterId() {
-		return routerId;
-	}
+    // Getters & Setters
 
-	public void setRouterId(String routerId) {
-		this.routerId = routerId;
-	}
+    public String getDeviceId() {
+        return deviceId;
+    }
 
-	public String getIpAddress() {
-		return ipAddress;
-	}
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
+    }
 
-	public void setIpAddress(String ipAddress) {
-		this.ipAddress = ipAddress;
-	}
+    public double getTemperature() {
+        return temperature;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    public void setTemperature(double temperature) {
+        this.temperature = temperature;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public long getNumPackets() {
+        return numPackets;
+    }
 
-	public double getCpuUsage() {
-		return cpuUsage;
-	}
+    public void setNumPackets(long numPackets) {
+        this.numPackets = numPackets;
+    }
 
-	public void setCpuUsage(double cpuUsage) {
-		this.cpuUsage = cpuUsage;
-	}
+    public boolean isAlive() {
+        return alive;
+    }
 
-	public double getMemoryUsage() {
-		return memoryUsage;
-	}
+    public void setAlive(boolean alive) {
+        this.alive = alive;
+    }
 
-	public void setMemoryUsage(double memoryUsage) {
-		this.memoryUsage = memoryUsage;
-	}
+    public long getTimestamp() {
+        return timestamp;
+    }
 
-	public long getTimestamp() {
-		return timestamp;
-	}
-
-	public void setTimestamp(long timestamp) {
-		this.timestamp = timestamp;
-	}
-
-	// getters & setters
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
 }

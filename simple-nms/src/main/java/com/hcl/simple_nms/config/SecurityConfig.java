@@ -1,9 +1,12 @@
 package com.hcl.simple_nms.config;
 
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+
+import com.hcl.simple_nms.security.JwtFilter;
 
 @Configuration
 public class SecurityConfig {
@@ -21,4 +24,5 @@ public class SecurityConfig {
 
         return http.build();
     }
+
 }

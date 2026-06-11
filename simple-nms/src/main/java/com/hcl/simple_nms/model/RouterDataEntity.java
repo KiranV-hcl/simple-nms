@@ -10,15 +10,13 @@ public class RouterDataEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private String routerId;
-	private String ipAddress;
-	private String status;
-	private double cpuUsage;
-	private double memoryUsage;
+	private String deviceId;
+	private double temperature;
+	private long numPackets;
+	private boolean alive;
 	private long timestamp;
-	
-	// Getters & Setters
 
+	// getters & setters
 	public Long getId() {
 		return id;
 	}
@@ -27,44 +25,36 @@ public class RouterDataEntity {
 		this.id = id;
 	}
 
-	public String getRouterId() {
-		return routerId;
+	public String getDeviceId() {
+		return deviceId;
 	}
 
-	public void setRouterId(String routerId) {
-		this.routerId = routerId;
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
 	}
 
-	public String getIpAddress() {
-		return ipAddress;
+	public double getTemperature() {
+		return temperature;
 	}
 
-	public void setIpAddress(String ipAddress) {
-		this.ipAddress = ipAddress;
+	public void setTemperature(double temperature) {
+		this.temperature = temperature;
 	}
 
-	public String getStatus() {
-		return status;
+	public long getNumPackets() {
+		return numPackets;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setNumPackets(long numPackets) {
+		this.numPackets = numPackets;
 	}
 
-	public double getCpuUsage() {
-		return cpuUsage;
+	public boolean isAlive() {
+		return alive;
 	}
 
-	public void setCpuUsage(double cpuUsage) {
-		this.cpuUsage = cpuUsage;
-	}
-
-	public double getMemoryUsage() {
-		return memoryUsage;
-	}
-
-	public void setMemoryUsage(double memoryUsage) {
-		this.memoryUsage = memoryUsage;
+	public void setAlive(boolean alive) {
+		this.alive = alive;
 	}
 
 	public long getTimestamp() {
